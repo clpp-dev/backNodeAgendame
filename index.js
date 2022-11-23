@@ -15,8 +15,17 @@ const User = mongoose.model('User', {
   eventos: [{}],
 });
 
+const Event = mongoose.model('Event', {
+  username: String,
+  idUser: String,
+  description: String,
+  hour: String,
+  date: String,
+  place: String,
+});
+
 //crear Usuarios
-const crear = async () => {
+const crearUsuaerio = async () => {
   const user = new User({
     username: 'clpp1994',
     nombre: 'cristian',
@@ -28,34 +37,28 @@ const crear = async () => {
     eventos: [{}],
   });
 
-  const savedUser = await user.save();
-  console.log('🚀 > > > > crear > > > > savedUser', savedUser);
+  await user.save();
 };
 
 //Obtener todos los Usuarios
 const buscarTodo = async () => {
   const users = await User.find();
-  console.log('🚀 > > > > buscarTodo > > > > users', users);
 };
 
-//Buscar
+//Buscar retonar un array []
 const buscar = async () => {
   const user = await User.find({ username: 'clperez341' });
-  console.log('🚀 > > > > buscarTodo > > > > user', user);
 };
 
-//Obtener un usuario
+//Obtener un usuario, reorna un obejeto {}
 const buscarUno = async () => {
   const user = await User.findOne({ username: 'clperez341' });
-  console.log('🚀 > > > > buscarTodo > > > > user', user);
 };
 
 //Actualizar Usuario
 const actualizar = async () => {
   const user = await User.findOne({ username: 'clperez341' });
-  user.edad = 30;
   await user.save();
-  console.log('🚀 > > > > buscarTodo > > > > user', user);
 };
 
 //Eliminar Usuario
@@ -64,4 +67,45 @@ const eliminar = async () => {
   await user.remove();
 };
 
-crear();
+
+
+//crear Evento
+const crearEvento = async (username, id) => {
+  const newEvent = new Event({
+    username: username,
+    idUser: id,
+    description: 'reunion',
+    hour: '14:00',
+    date: '2022-11-22',
+    place: 'Montenegro',
+  });
+  
+  await newEvent.save();
+};
+
+//Obtener todos los Eventos
+const buscarTodosEventos = async () => {
+  const users = await Event.find();
+};
+
+//Buscar retonar un array []
+const buscarEvento = async () => {
+  const user = await Event.find({ username: 'clperez341' });
+};
+
+//Obtener un Evento, reorna un obejeto {}
+const buscarUnEvento = async () => {
+  const user = await Event.findOne({ username: 'clperez341' });
+};
+
+//Actualizar Evento
+const actualizarEvento = async () => {
+  const event = await Event.findOne({ username: 'clperez341' });
+  await event.save();
+};
+
+//Eliminar Evento
+const eliminarEvento = async () => {
+  const event = await Event.findOne({ username: 'clpp1994' });
+  await event.remove();
+};
