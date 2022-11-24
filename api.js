@@ -1,13 +1,23 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const user = require('./user.controller');
 const app = express();
 const port = 3000;
+
+app.use(express.json())
+
+mongoose.connect(
+  'mongodb+srv://leandroperez:l3nghUsQfWYGaGvh@clusteragendame.jklxvhg.mongodb.net/bdagendame?retryWrites=true&w=majority'
+);
+
+
+
 
 app.get('/', user.list);
 
 app.post('/',user.create);
 
-app.get('/:id', user.get);
+app.get('/:id', user.getOne);
 
 app.put('/:id', user.update);
 

@@ -12,7 +12,6 @@ const User = mongoose.model('User', {
   ocupacion: String,
   email: String,
   password: String,
-  eventos: [{}],
 });
 
 const Event = mongoose.model('Event', {

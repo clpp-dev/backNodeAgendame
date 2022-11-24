@@ -1,17 +1,21 @@
+const Users = require('./UserModel');
+
 const User = {
-  get:  (req, res) => {
+  getOne: async (req, res) => {
     res.status(200).send('Consulta un elemento !!!');
   },
-  list: (req, res) => {
-    res.status(200).send('EXITO!!!');
+  list: async (req, res) => {
+    const users = await Users.find()
+    res.status(200).send(users);
   },
-  create:  (req, res) => {
+  create: async (req, res) => {
+    console.log('🚀 > > > > create: > > > > req', req.body);
     res.status(201).send(' CREADO !!!');
   },
-  update:  (req, res) => {
+  update: async (req, res) => {
     res.status(204).send('Actualizando !!!');
   },
-  destroy:  (req, res) => {
+  destroy: async (req, res) => {
     res.status(204).send('ELIMINADO !!!');
   },
 };
