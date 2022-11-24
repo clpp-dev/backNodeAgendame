@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const user = require('./user.controller');
+const event = require('./event.controller')
 const app = express();
 const port = 3000;
 
@@ -11,19 +12,32 @@ mongoose.connect(
 );
 
 
+// Rutas de CRUD USUARIOS
+app.get('/user', user.list);
+
+app.post('/user',user.create);
+
+app.get('/user/:id', user.getOne);
+
+app.put('/user/:id', user.update);
+
+app.patch('/user/:id', user.update);
+
+app.delete('/user/:id', user.destroy);
 
 
-app.get('/', user.list);
+// Rutas de CRUD EVENTOS
+app.get('/event', event.list);
 
-app.post('/',user.create);
+app.post('/event',event.create);
 
-app.get('/:id', user.getOne);
+app.get('/event/:id', event.getOne);
 
-app.put('/:id', user.update);
+app.put('/event/:id', event.update);
 
-app.patch('/:id', user.update);
+app.patch('/event/:id', event.update);
 
-app.delete('/:id', user.destroy);
+app.delete('/event/:id', event.destroy);
 
 app.get('*', (req, res) => {
   res.status(404).send(' Recurso no encontrado !!!');
