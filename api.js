@@ -2,15 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const user = require('./user.controller');
 const event = require('./event.controller')
+const cors = require('cors')
 const app = express();
-const port = 3000;
+const port = 8000;
 
+app.use(cors())
 app.use(express.json())
 
 mongoose.connect(
   'mongodb+srv://leandroperez:l3nghUsQfWYGaGvh@clusteragendame.jklxvhg.mongodb.net/bdagendame?retryWrites=true&w=majority'
 );
 
+// Ruta Login
+app.post('/login', user.login);
 
 // Rutas de CRUD USUARIOS
 app.get('/user', user.list);
@@ -28,6 +32,8 @@ app.delete('/user/:id', user.destroy);
 
 // Rutas de CRUD EVENTOS
 app.get('/event', event.list);
+
+app.get('/eventsUser/:idUser', event.listByUser);
 
 app.post('/event',event.create);
 

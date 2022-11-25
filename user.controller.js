@@ -1,6 +1,17 @@
 const Users = require('./UserModel');
 
 const User = {
+  login: async (req, res) => {
+    console.log('🚀 > > > > login: > > > > req', req.body);
+    const { email, password } = req.body;
+    const user = await Users.findOne({ email: email });
+    if(user && password === user.password){
+      console.log('EXITO')
+      res.status(200).send(user);
+      return;
+    }
+    res.status(404).send('Usuario no encontrado !!!');
+  },
   getOne: async (req, res) => {
     const { id } = req.params;
     const user = await Users.findOne({ _id: id });

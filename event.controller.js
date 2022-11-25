@@ -10,6 +10,15 @@ const Event = {
     const events = await Events.find();
     res.status(200).send(events);
   },
+  listByUser: async (req, res) => {
+
+    console.log('🚀 > > > > listByUser: > > > > req', req.params);
+
+    const { idUser } = req.params;
+    const events = await Events.find({ idUser: idUser });
+
+    res.status(200).send(events);
+  },
   create: async (req, res) => {
     const event = new Events(req.body);
     const savedEvent = await event.save();
@@ -26,7 +35,7 @@ const Event = {
   destroy: async (req, res) => {
     const { id } = req.params;
     const event = await Events.findOne({ _id: id });
-    if (event){
+    if (event) {
       await event.remove();
     }
     res.sendStatus(204);
